@@ -7,6 +7,9 @@ threadsafe: true
 handlers:
  - url: /
    script: main.app
+ - url: /bower_components
+   static_dir: bower_components
+
 
 libraries:
 - name: webapp2

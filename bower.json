@@ -1,0 +1,6 @@
+{
+  "name": "polymer-project",
+  "dependencies": {
+    "paper-item": "PolymerElements/paper-item#^1.0.0"
+  }
+}
