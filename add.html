@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<style>
+textarea {
+  width: 30em;
+  height: 4em;
+}
+
+# TODO: Use generated content to add a tick!
+input:invalid {
+  color: red;
+}
+input:valid {
+  color: green;
+}
+</style>
+<body unchecked>
+<form is="iron-form" id="form" method="post" action="/form/handler">
+  First name: <input name="firstName" id="firstName" type="text"/><br>
+  Last name: <input name="lastName" id="lastName" type="text"/><br>
+  Address: <textarea name="address" id="address" type="address"></textarea><br>
+  Telephone: <input name="telephone" id="tel" type="tel"/><br>
+  Email: <input name="email" id="email" type="email"/><br>  
+</form>
+<button id="submitContact">Add contact</button>
+
+<script>
+function realRequest() {
+  return {
+    'firstName': document.getElementById('firstName').value,
+    'lastName': document.getElementById('lastName').value,
+    'address': document.getElementById('address').value,
+    'tel': document.getElementById('tel').value,
+    'email': document.getElementById('email').value
+  };
+}
+function fakeRequest() {
+  return {
+    'firstName': "John",
+    'lastName': "Doe",
+    'address': "150 Foo St // Stockton, CA 95043",
+    'tel': "8885413232",
+    'email': "john_doe@gmail.com",
+  };
+}
+
+function addContact() {
+  // Poor man's prevention of double-clicks :)
+  document.getElementById("submitContact").setAttribute("disabled", true);
+  // TODO: Validate the inputs (no empty?, ...).
+  var request = realRequest();
+  console.log(request);
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/add", true);
+  xhr.onload = function() {
+    if (xhr.status != 200) {
+      document.body.appendChild(document.createTextNode("Error submitting contact"));
+    } else {
+      document.body.appendChild(document.createTextNode("Added new member!"));
+    }
+  }
+      
+  xhr.send(JSON.stringify(request));
+}
+
+submitContact.addEventListener("click", addContact);
+</script>
+

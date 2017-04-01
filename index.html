@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+
+<body unchecked>
+<a href="/add">Add a new member</a><br/>
+
+List of current members:
+<script>
+var xhr = new XMLHttpRequest();
+var url = "/getall";
+xhr.open("GET", url, true);
+xhr.onload = function() {
+  if (xhr.status != 200) {
+      alert("Initial population failed with status: " + xhr.status);
+  } else {
+    if (xhr.responseText.length !== 0) {
+        console.log(xhr.responseText);
+        members = JSON.parse(xhr.responseText);
+        for (i = 0; i < members.members.length; ++i) {
+          var member = members.members[i];
+          console.log(member);
+          var pi = document.createElement("paper-item");
+          var pib = document.createElement("paper-item-body");
+          pib.appendChild(document.createTextNode(member.firstName + " " + member.lastName + ", tel:" + member.tel + ", email: " + member.email));
+          pi.appendChild(pib);
+          document.body.appendChild(pi);
+        }
+    }
+  }
+}
+xhr.send();
+</script>
+</body>

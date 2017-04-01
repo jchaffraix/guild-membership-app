@@ -9,7 +9,10 @@ handlers:
    script: main.app
  - url: /bower_components
    static_dir: bower_components
-
+ - url: /add
+   script: add.app
+ - url: /getall
+   script: add.app
 
 libraries:
 - name: webapp2
