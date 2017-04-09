@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+<html>
+<head>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="bower_components/polymer/polymer.html">
+  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="bower_components/iron-list/iron-list.html">
+	<link rel="import" href="bower_components/paper-item/paper-item.html">
+</head>
 
-<link rel="import" href="bower_components/paper-item/paper-item.html">
+<body>
+<h1 style="color: red"> This is a demo app. The stored names are fake and no real user names should be added.</h1>
 
-<body unchecked>
 <a href="/add">Add a new member</a><br/>
 
 List of current members:
-<script>
-var xhr = new XMLHttpRequest();
-var url = "/getall";
-xhr.open("GET", url, true);
-xhr.onload = function() {
-  if (xhr.status != 200) {
-      alert("Initial population failed with status: " + xhr.status);
-  } else {
-    if (xhr.responseText.length !== 0) {
-        console.log(xhr.responseText);
-        members = JSON.parse(xhr.responseText);
-        for (i = 0; i < members.members.length; ++i) {
-          var member = members.members[i];
-          console.log(member);
-          var pi = document.createElement("paper-item");
-          var pib = document.createElement("paper-item-body");
-          pib.appendChild(document.createTextNode(member.firstName + " " + member.lastName + ", tel:" + member.tel + ", email: " + member.email));
-          pi.appendChild(pib);
-          document.body.appendChild(pi);
-        }
-    }
-  }
-}
-xhr.send();
-</script>
+<template is="dom-bind">
+	<iron-ajax url="/getall" last-response="{{data}}" handle-as="json" auto></iron-ajax>
+
+	<iron-list items="{{data}}" as="item">
+		<template>
+			<paper-item>
+				<paper-item-body>
+				[[item.firstName]] [[item.lastName]], tel: [[item.tel]], email: [[item.email]]
+				<paper-item-body>
+			</paper-item>
+		</template>
+	</iron-list>
+
+</template>
 </body>
+</html>

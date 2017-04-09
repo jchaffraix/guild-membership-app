@@ -31,7 +31,7 @@ class GuildMember(ndb.Model):
   @classmethod
   def getAll(cls):
     allMembers = cls.query().fetch()
-    result = '{"members": ['
+    result = '['
     for member in allMembers:
       # TODO: This should use json.dumps instead of custom code.
       logging.info(member)
@@ -43,8 +43,9 @@ class GuildMember(ndb.Model):
       result += '"tel": "' + member.tel + '", '
       result += '"email": "' + member.email + '"}, '
     # TODO: Gross to remove the last 2 chars.
-    result = result[:-2]
-    result += ']}'
+    if len(result) is not 1:
+      result = result[:-2]
+    result += ']'
     return result
 
 class MainPage(webapp2.RequestHandler):

@@ -1,6 +1,9 @@
 {
   "name": "polymer-project",
   "dependencies": {
-    "paper-item": "PolymerElements/paper-item#^1.0.0"
+    "paper-item": "PolymerElements/paper-item#",
+    "iron-list": "PolymerElements/iron-list#",
+    "iron-ajax": "PolymerElements/iron-ajax#",
+    "polymer": "Polymer/polymer#"
   }
 }
