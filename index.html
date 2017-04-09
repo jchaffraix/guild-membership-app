@@ -4,8 +4,10 @@
   <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
-  <link rel="import" href="bower_components/iron-list/iron-list.html">
 	<link rel="import" href="bower_components/paper-item/paper-item.html">
+  <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+  <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+	<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 </head>
 
 <body>
@@ -17,15 +19,17 @@ List of current members:
 <template is="dom-bind">
 	<iron-ajax url="/getall" last-response="{{data}}" handle-as="json" auto></iron-ajax>
 
-	<iron-list items="{{data}}" as="item">
-		<template>
-			<paper-item>
+	<paper-listbox multi>
+		<template is="dom-repeat" items="{{data}}">
+			<paper-item three-line>
 				<paper-item-body>
-				[[item.firstName]] [[item.lastName]], tel: [[item.tel]], email: [[item.email]]
+				[[item.firstName]] [[item.lastName]]<br>
+        Tel: [[item.tel]]<br>
+        Email: [[item.email]] <paper-icon-button icon="more-horiz" class="more"></paper-icon-button>
 				<paper-item-body>
 			</paper-item>
 		</template>
-	</iron-list>
+	</paper-listbox>
 
 </template>
 </body>
