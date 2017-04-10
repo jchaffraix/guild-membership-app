@@ -8,29 +8,36 @@
   <link rel="import" href="bower_components/iron-icons/iron-icons.html">
   <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
 	<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+  <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+  <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 </head>
 
-<body>
-<h1 style="color: red"> This is a demo app. The stored names are fake and no real user names should be added.</h1>
+<body class="fullbleed vertical layout">
+<paper-header-panel class="flex">
+  <paper-toolbar>
+    <div>To be filled.</div>
+  </paper-toolbar>
+  <div>
+    <h1 style="color: red"> This is a demo app. The stored names are fake and no real user names should be added.</h1>
+    <a href="/add">Add a new member</a><br/>
+    List of current members:
+    <template is="dom-bind">
+      <iron-ajax url="/getall" last-response="{{data}}" handle-as="json" auto></iron-ajax>
 
-<a href="/add">Add a new member</a><br/>
-
-List of current members:
-<template is="dom-bind">
-	<iron-ajax url="/getall" last-response="{{data}}" handle-as="json" auto></iron-ajax>
-
-	<paper-listbox multi>
-		<template is="dom-repeat" items="{{data}}">
-			<paper-item three-line>
-				<paper-item-body>
-				[[item.firstName]] [[item.lastName]]<br>
-        Tel: [[item.tel]]<br>
-        Email: [[item.email]] <paper-icon-button icon="more-horiz" class="more"></paper-icon-button>
-				<paper-item-body>
-			</paper-item>
-		</template>
-	</paper-listbox>
-
-</template>
+      <paper-listbox multi>
+        <template is="dom-repeat" items="{{data}}">
+          <paper-item three-line>
+            <paper-item-body>
+            [[item.firstName]] [[item.lastName]]<br>
+            Tel: [[item.tel]]<br>
+            Email: [[item.email]] <paper-icon-button icon="more-horiz" class="more"></paper-icon-button>
+            <paper-item-body>
+          </paper-item>
+        </template>
+      </paper-listbox>
+    </template>
+  </div>
+</paper-header-panel>
 </body>
 </html>

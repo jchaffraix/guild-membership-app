@@ -6,6 +6,9 @@
     "iron-list": "PolymerElements/iron-list#",
     "iron-ajax": "PolymerElements/iron-ajax#",
     "paper-icon-button": "PolymerElements/paper-icon-button#",
+    "paper-header-panel": "PolymerElements/paper-header-panel#",
+    "paper-toolbar": "PolymerElements/paper-toolbar#",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#",
     "polymer": "Polymer/polymer#"
   }
 }
