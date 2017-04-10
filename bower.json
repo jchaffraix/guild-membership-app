@@ -11,6 +11,9 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#",
     "paper-input": "PolymerElements/paper-input#",
     "paper-fab": "PolymerElements/paper-fab#",
+    "gold-email-input": "PolymerElements/gold-email-input#",
+    "gold-phone-input": "PolymerElements/gold-phone-input#",
+    "iron-form": "PolymerElements/iron-form#",
     "polymer": "Polymer/polymer#"
   }
 }
