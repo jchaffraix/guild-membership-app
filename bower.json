@@ -9,6 +9,7 @@
     "paper-header-panel": "PolymerElements/paper-header-panel#",
     "paper-toolbar": "PolymerElements/paper-toolbar#",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#",
+    "paper-input": "PolymerElements/paper-input#",
     "polymer": "Polymer/polymer#"
   }
 }

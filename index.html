@@ -11,12 +11,37 @@
   <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
   <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
   <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="bower_components/paper-input/paper-input.html">
+
+  <style is="custom-style">
+    /*paper-toolbar {
+      background-color: var(--paper-indigo-500);
+    }*/
+    :root {
+      /* Label and underline color when the input is not focused */
+      --paper-input-container-color: var(--paper-amber-400);
+
+      /* Label and underline color when the input is focused */
+      --paper-input-container-focus-color: var(--paper-amber-400);
+
+      /* Label and underline color when the input is invalid
+      --paper-input-container-invalid-color: green; */
+
+      /* Input foreground color */
+      --paper-input-container-input-color: var(--paper-amber-400);
+    }
+    paper-input {
+      /* TODO: Too long on my machine but probably fine as a first draft. */
+      width: 80%;
+    }
+  </style>
+
 </head>
 
 <body class="fullbleed vertical layout">
 <paper-header-panel class="flex">
   <paper-toolbar>
-    <div>To be filled.</div>
+    <paper-input label="search (not working)"></paper-input>
   </paper-toolbar>
   <div>
     <h1 style="color: red"> This is a demo app. The stored names are fake and no real user names should be added.</h1>
