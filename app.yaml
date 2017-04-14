@@ -5,12 +5,16 @@ threadsafe: true
 handlers:
  - url: /
    script: main.app
+   secure: always
  - url: /bower_components
    static_dir: bower_components
+   secure: always
  - url: /add
    script: add.app
+   secure: always
  - url: /getall
    script: add.app
+   secure: always
 
 libraries:
 - name: webapp2
