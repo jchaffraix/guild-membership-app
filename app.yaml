@@ -6,15 +6,19 @@ handlers:
  - url: /
    script: main.app
    secure: always
+   # TODO: Make login required.
  - url: /bower_components
    static_dir: bower_components
    secure: always
+   # TODO: Make login required.
  - url: /add
    script: add.app
    secure: always
+   # TODO: Make login required.
  - url: /getall
    script: add.app
    secure: always
+   # TODO: Make login required.
 
 libraries:
 - name: webapp2

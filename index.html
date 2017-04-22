@@ -41,7 +41,21 @@
       margin-right: 50px;
     }
   </style>
-
+	<!-- Initialize Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyBKd_f7wKyXeJsTL1KKgXTdQl07v8TYvYY",
+			// This is <PROJECT_ID>. Update when we move.
+			authDomain: "guild-demo-app.firebaseapp.com",
+			databaseURL: "https://guild-demo-app.firebaseio.com",
+			projectId: "guild-demo-app",
+			storageBucket: "guild-demo-app.appspot.com",
+			messagingSenderId: "504757276656"
+		};
+		firebase.initializeApp(config);
+	</script>
 </head>
 
 <body class="fullbleed vertical layout">
