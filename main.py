@@ -5,15 +5,18 @@ from authentication import *
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-      email = Authentication.GetUserEmail(self.request)
-      if email is None:
-        self.response.write(open('authentication.html').read())
-        return
-
-      # Authenticated user
+      # We don't authenticate the user here.
+      # The endpoints responsible for querying
+      # the database are responsible for this.
+      # This allows the UI to handle the
+      # authentication flow more seamlessly.
       template = open('index.html').read()
       self.response.write(template)
 
+class Authenticate(webapp2.RequestHandler):
+  def get(self):
+      self.response.write(open('authentication.html').read())
+    
 class GoogleLogin(webapp2.RequestHandler):
   def get(self):
     # This page has login: required, which forces to
@@ -25,5 +28,6 @@ class GoogleLogin(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
   ('/', MainPage),
+  ('/authenticate', Authenticate),
   ('/glogin', GoogleLogin),
 ], debug=True)

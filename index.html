@@ -13,6 +13,7 @@
   <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
   <link rel="import" href="bower_components/paper-fab/paper-fab.html">
   <link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
 
   <style is="custom-style">
     /*paper-toolbar {
@@ -40,7 +41,19 @@
     paper-fab {
       margin-right: 50px;
     }
+    paper-button {
+      background-color: var(--paper-orange-400);
+        color: white;
+      --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-indigo-200) !important;
+          color: white !important;
+      };
+    }
+    paper-button[disabled] {
+      background-color: var(--google-grey-300);
+    }
   </style>
+
 	<!-- Initialize Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
 	<script>
@@ -55,6 +68,18 @@
 			messagingSenderId: "504757276656"
 		};
 		firebase.initializeApp(config);
+    firebase.auth().onAuthStateChanged(function(user) {
+      login.disable = true;
+      user.getToken().then(function(idToken) {
+        // Now that we have the Firebase information, restart the
+        // query. TODO: Move fully to Firebase authentication and
+        // only perform a single query.
+        getAllRequest.headers = {
+          "Authorization": "Bearer " + idToken
+        }
+        getAllRequest.generateRequest();
+      });
+    });
 	</script>
 </head>
 
@@ -63,12 +88,13 @@
   <paper-toolbar>
     <a href="/add"><paper-fab mini icon="add" id="addMember"></paper-fab></a>
     <paper-input label="Search (not working)"></paper-input>
+    <paper-button id="login" onclick="window.location.href='/authenticate'">Log in</paper-button>
   </paper-toolbar>
   <div>
     <h1 style="color: red"> This is a demo app. The stored names are fake and no real user names should be added.</h1>
     Current members:
     <template is="dom-bind">
-      <iron-ajax url="/getall" last-response="{{data}}" handle-as="json" auto></iron-ajax>
+      <iron-ajax url="/getall" id="getAllRequest" last-response="{{data}}" handle-as="json" auto></iron-ajax>
 
       <paper-listbox multi>
         <template is="dom-repeat" items="{{data}}">

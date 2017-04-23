@@ -1,3 +1,4 @@
-google-auth==1.0.0
-httpclient==0.0.2
-six==1.10.0
+google-auth
+httpclient
+six
+requests

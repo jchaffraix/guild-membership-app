@@ -19,6 +19,9 @@ handlers:
    script: add.app
    secure: always
    # TODO: Make login required.
+ - url: /authenticate
+   script: main.app
+   secure: always
  - url: /glogin
    script: main.app
    secure: always
@@ -26,4 +29,6 @@ handlers:
 
 libraries:
 - name: webapp2
+  version: latest
+- name: ssl
   version: latest

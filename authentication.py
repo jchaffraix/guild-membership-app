@@ -6,6 +6,15 @@ import logging
 from google.appengine.api import users
 import google.oauth2.id_token
 
+#import requests_toolbelt.adapters.appengine
+import google.auth.transport.requests
+
+# Use the App Engine Requests adapter. This makes sure that Requests uses
+# URLFetch.
+# TODO: What does this do really?
+#requests_toolbelt.adapters.appengine.monkeypatch()
+HTTP_REQUEST = google.auth.transport.requests.Request()
+
 # TODO: This really needs some testing as this is core to the app.
 
 class Authentication:
@@ -27,13 +36,13 @@ class Authentication:
       # TODO: Once I have validated this code, I should probably
       # move under a single try...except.
       authorization = request.headers['Authorization']
-    except:
+    except Exception, e:
+      logging.error("No authorization header, rejecting connection.")
       return None
 
     id_token = authorization.split(' ').pop()
-    # That is probably wrong.
-    HTTP_REQUEST = request
     claims = google.oauth2.id_token.verify_firebase_token(id_token, HTTP_REQUEST)
+    logging.error(claims)
     if not claims:
       return None
     return claims.get('email', None)
