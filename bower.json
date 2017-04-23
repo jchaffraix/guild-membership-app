@@ -14,6 +14,7 @@
     "gold-email-input": "PolymerElements/gold-email-input#",
     "gold-phone-input": "PolymerElements/gold-phone-input#",
     "iron-form": "PolymerElements/iron-form#",
+    "paper-button": "PolymerElements/paper-button#",
     "polymer": "Polymer/polymer#"
   }
 }

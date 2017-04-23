@@ -1,3 +1,55 @@
 <!DOCTYPE html>
-Not Authorized
-<a href="/glogin"> Log in with Google </a>
+<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+
+<style is="custom-style">
+/* TODO: Share the style across the pages for a consistent look. */
+:root {
+  /* Label and underline color when the input is not focused */
+  --paper-input-container-color: var(--paper-orange-400);
+
+  /* Label and underline color when the input is focused */
+  --paper-input-container-focus-color: var(--paper-orange-400);
+
+  /* Label and underline color when the input is invalid
+  --paper-input-container-invalid-color: green; */
+
+  /* Input foreground color */
+  --paper-input-container-input-color: var(--paper-orange-400);
+
+  --paper-fab-background: var(--paper-orange-400);
+
+  --gold-phone-input-country-code: {
+    color: var(--paper-orange-400);
+  };
+}
+paper-button {
+  background-color: var(--paper-orange-400);
+    color: white;
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-indigo-200) !important;
+      color: white !important;
+  };
+}
+</style>
+
+<body unresolved>
+You need to login:
+<form is="iron-form" id="form">
+  <gold-email-input auto-validate label="Email" id="email" always-float-label></gold-email-input>
+  <paper-input label="Password" id="password" type="password" always-float-label></paper-input>
+</form>
+<paper-button>Sign-in</paper-button>
+<paper-button>Sign-up</paper-button>
+<paper-button>Reset password</paper-button>
+
+<!-- TODO: Better spacing here. -->
+<br>
+<br>
+OR
+<br>
+<br>
+<paper-button onclick="window.location.href='/glogin'">Log in with Google</paper-button>
