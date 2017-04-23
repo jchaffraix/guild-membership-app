@@ -21,7 +21,10 @@ class Authentication:
   # TODO: Big hack, need to wire that to our database once I have the model down.
   known_users = set(
     ["9f927a92a4ace305922ba459ed36c4381784ff03d86c8f291417b9413c97c206",
-     "afafa1e6b03387a3d53228a001285ad521031bc362b5297054e101fe47e5276a"])
+     "afafa1e6b03387a3d53228a001285ad521031bc362b5297054e101fe47e5276a",
+     "2df9e7f9f608608a9c90b772519165f501087558ccb7e5b3749fea6b70ba8e8c",
+     # TODO: This is for testing purpose, remove.
+     "a3852fdff4dc38d45e4d2f997a6509200e1df5806e113b64f69a1be30e024f3b"])
 
   # Returns the authenticated user or None if the user is not authenticated.
   @staticmethod
