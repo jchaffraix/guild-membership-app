@@ -3,6 +3,7 @@ import json
 import webapp2
 
 from google.appengine.ext import ndb
+from authentication import *
 
 class GuildMember(ndb.Model):
   # TODO: Track last modified, who modified and when added?
@@ -54,6 +55,11 @@ class MainPage(webapp2.RequestHandler):
 
   def post(self):
     logging.info(self.request.body)
+
+    if Authentication.CanUserSeeData(self.request) is False:
+      self.response.status_int = 403
+      return
+
     # TODO: We can have collisions here, we should probably handle them.
     GuildMember.save(self.request.body);
     self.response.write("Saved")
@@ -61,6 +67,10 @@ class MainPage(webapp2.RequestHandler):
 
 class GetAll(webapp2.RequestHandler):
   def get(self):
+    if Authentication.CanUserSeeData(self.request) is False:
+      self.response.status_int = 403
+      return
+
     self.response.write(GuildMember.getAll())
 
 app = webapp2.WSGIApplication([

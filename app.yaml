@@ -19,6 +19,10 @@ handlers:
    script: add.app
    secure: always
    # TODO: Make login required.
+ - url: /glogin
+   script: main.app
+   secure: always
+   login: required
 
 libraries:
 - name: webapp2

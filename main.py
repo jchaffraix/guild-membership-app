@@ -1,28 +1,29 @@
-import google.oauth2.id_token
 import logging
 import webapp2
 
+from authentication import *
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
-      try:
-        # TODO: Once I have validated this code, I should probably
-        # move under a single try...except.
-        authorization = self.request.headers['Authorization']
-      except:
+      email = Authentication.GetUserEmail(self.request)
+      if email is None:
         self.response.write(open('authentication.html').read())
         return
-
-      id_token = authorization.split(' ').pop()
-      claims = google.oauth2.id_token.verify_firebase_token(
-      id_token, HTTP_REQUEST)
-      if not claims:
-        #self.response.write(open('authentication.html').read())
-        return 'Unauthorized', 401
 
       # Authenticated user
       template = open('index.html').read()
       self.response.write(template)
 
+class GoogleLogin(webapp2.RequestHandler):
+  def get(self):
+    # This page has login: required, which forces to
+    # authenticate using the user API.
+    # TODO: We are missing the original page URL here
+    # and always redirect to the homepage. Propagate
+    # this information here if it makes sense.
+    self.redirect('/')
+
 app = webapp2.WSGIApplication([
   ('/', MainPage),
+  ('/glogin', GoogleLogin),
 ], debug=True)
