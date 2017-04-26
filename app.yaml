@@ -26,6 +26,9 @@ handlers:
    script: main.app
    secure: always
    login: required
+ - url: /remove
+   script: remove.app
+   secure: always
 
 libraries:
 - name: webapp2

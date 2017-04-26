@@ -5,6 +5,7 @@ import webapp2
 from google.appengine.ext import ndb
 from authentication import *
 
+# TODO: Move this into its own class.
 class GuildMember(ndb.Model):
   # TODO: Track last modified, who modified and when added?
   # TODO: Add a unique identifier (needed for ACL)?
@@ -14,6 +15,20 @@ class GuildMember(ndb.Model):
   address = ndb.StringProperty()
   tel = ndb.StringProperty()
   email = ndb.StringProperty()
+
+  @classmethod
+  def remove(cls, email):
+    entries = cls.query(GuildMember.email == email).fetch()
+    if len(entries) > 2:
+      logging.error("Multiple entries with same email " + email)
+      return False
+
+    if len(entries) == 0:
+      logging.info("Couldn't remove entries for email " + email)
+      return False
+
+    entries[0].key.delete()
+    return True
 
   @classmethod
   def save(cls, jsonString):

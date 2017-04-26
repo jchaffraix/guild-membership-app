@@ -67,10 +67,13 @@
 			storageBucket: "guild-demo-app.appspot.com",
 			messagingSenderId: "504757276656"
 		};
+    var fbIdToken = null;
 		firebase.initializeApp(config);
     firebase.auth().onAuthStateChanged(function(user) {
       login.disable = true;
       user.getToken().then(function(idToken) {
+        // Save the token for use with delete.
+        fbIdToken = idToken;
         // Now that we have the Firebase information, restart the
         // query. TODO: Move fully to Firebase authentication and
         // only perform a single query.
@@ -81,6 +84,22 @@
       });
     });
 	</script>
+  <script>
+    function deleteEntry(node) {
+      var email = node.parentElement.querySelector(".email").innerHTML;
+      if (fbIdToken != null) {
+        removeRequest.headers = {
+          "Authorization": "Bearer " + fbIdToken
+        }
+      }
+      // TODO: It seems like GET doesn't send a body. Investigate.
+      removeRequest.method = "POST";
+      removeRequest.body = email;
+      removeRequest.generateRequest();
+      // TODO: That's an horible way of regenerating the list...
+      window.location.reload(true);
+    }
+  </script>
 </head>
 
 <body class="fullbleed vertical layout">
@@ -95,6 +114,7 @@
     Current members:
     <template is="dom-bind">
       <iron-ajax url="/getall" id="getAllRequest" last-response="{{data}}" handle-as="json" auto></iron-ajax>
+      <iron-ajax url="/remove" id="removeRequest"></iron-ajax>
 
       <paper-listbox multi>
         <template is="dom-repeat" items="{{data}}">
@@ -102,7 +122,7 @@
             <paper-item-body>
             [[item.firstName]] [[item.lastName]]<br>
             Tel: [[item.tel]]<br>
-            Email: [[item.email]] <paper-icon-button icon="more-horiz" class="more"></paper-icon-button>
+            Email: <span class="email">[[item.email]]</span> <paper-icon-button icon="more-horiz" class="more"></paper-icon-button><paper-icon-button icon="delete" onclick="deleteEntry(this)"></paper-icon-button>
             <paper-item-body>
           </paper-item>
         </template>
